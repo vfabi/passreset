@@ -3,12 +3,15 @@ Self-service password reset web application that allows users to change their pa
 Supported user registries: 
 - LDAPv3
 
+## Interface
+![Image description](.tmp/interface.png)
+
 ## Features
 - User password reset functionality
-- Security: simple captcha (no external dependencies to Google's reCaptcha and it configuration)
-- LDAPv3 backend integration
-- SMTP server email transport support
-- AWS SES email transport support
+- Simple captcha (no external dependencies to Google's reCaptcha and it configuration)
+- LDAPv3 user registry backend
+- SMTP server email transport
+- AWS SES email transport
 
 
 # Files and folders
@@ -18,6 +21,7 @@ Supported user registries:
 - application/templates - html templates
 - deploy - contains CI-CD files, Dockerfile
 - var - contains files to which the application writes data during the course of its operation
+- .tmp - helpful temporary files not used for application
 - app.py - application entrypoint
 - config.json- application configuration
 - LICENSE - license manifest
@@ -64,6 +68,10 @@ There are 2 parts of application configuration: config.json - for permanent vari
 - EMAIL_SERVER_PORT (optional) -  email server port, used if EMAIL_TRANSPORT = email_server
 - EMAIL_SERVER_USER (optional) - email user, used if EMAIL_TRANSPORT = email_server
 - EMAIL_SERVER_PASSWORD (optional) - email user password, used if EMAIL_TRANSPORT = email_server
+- EMAIL_AWSSES_ACCESS_KEY (optional) - AWS access key, used if EMAIL_TRANSPORT = aws_ses
+- EMAIL_AWSSES_SECRET_KEY (optional) - AWS secret key, used if EMAIL_TRANSPORT = aws_ses
+- EMAIL_AWSSES_REGION (optional) - AWS region, used if EMAIL_TRANSPORT = aws_ses
+- EMAIL_AWSSES_SENDER (optional) - 'from' email address, used if EMAIL_TRANSPORT = aws_ses. Note: this email address should be AWS SES verified to successfully send email messages via AWS SES.
 - BACKEND_TYPE (required) - user registry backend type, possible values: ldap
 - LDAP_SERVER_ADDRESS (optional) - LDAP server ip address
 - LDAP_SERVER_PORT (optional, default=389) - LDAP server ip port
@@ -80,10 +88,12 @@ There are 2 parts of application configuration: config.json - for permanent vari
  - Run `python app.py`
  - Navigate to http://127.0.0.1:8000
 
+ Or use docker-compose to start full openLDAP+PHPldapadmin+Resetpass stack. Cd to `.tmp/` configure `env.dockercompose` file and run `docker-compose up`.
+
 
 # Docker
 **Repo:** vfabi/passreset at https://hub.docker.com  
-**Build:** run `docker build -t passreset:latest -f ./deploy/Dockerfile .`
+**Build:** `docker build -t passreset:latest -f ./deploy/Dockerfile .`
 
 
 # Contributing
