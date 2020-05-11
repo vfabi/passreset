@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="middle-box my-5 text-center bg-white p-4 p-sm-5">
+        <form method="POST" class="register-form" action="">
+            {{ form.hidden_tag() }}
+            <h4 class="mb-30">New Password</h4>
+
+            <div class="form-group">
+                {% if form.new_password.errors %}
+                    {{ form.new_password(class="form-control is-invalid", placeholder="Password", autocomplete="off") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.new_password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.new_password(class="form-control", placeholder="Password", autocomplete="off") }}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {% if form.confirm_password.errors %}
+                    {{ form.confirm_password(class="form-control is-invalid", placeholder="Confirm password", autocomplete="off") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.confirm_password(class="form-control", placeholder="Confirm password", autocomplete="off") }}
+                {% endif %}
+            </div>
+            {{ form.submit(class="btn btn-primary btn-block btn-lg") }}
+            <p class="text-center mt-3">{{ variables.app_name }}</p>
+        </form>
+    </div>
+{% endblock content %}

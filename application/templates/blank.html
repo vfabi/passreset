@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block message %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <p>{{ message }}</p>
+            {% for category, message in messages %}
+                <div class="col-md-12">
+                    <!-- <div class="card text-white bg-{{ category }} mb-30"> -->
+                    <div class="card full-height">
+                        <div class="card-header border-bottom-0">{{ title | capitalize }}</div>
+                        <div class="card-body">
+                            <!-- <h5 class="text-white">{{ category | capitalize }}</h5> -->
+                            <!-- <p class="card-text text-white">{{ message }}</p> -->
+                            <p class="card-text">{{ message }}</p>
+                            <a href="/" class="btn btn-primary">Back To Home</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock message %}

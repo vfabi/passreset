@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/core-img/favicon.ico') }}">
+  </head>
+
+  <body>
+    <div id="preloader" class="d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div class="main-content-area h-100vh">
+      <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+          <div class="col-md-8 col-lg-6">
+            {% block message %}{% endblock %}
+            {% block content %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/ecaps.bundle.js')}}"></script>
+    <script src="{{url_for('static', filename='js/default-assets/active.js')}}"></script>
+  </body>
+</html>

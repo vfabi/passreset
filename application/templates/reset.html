@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block message %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <p>{{ message }}</p>
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock message %}
+
+{% block content %}
+    <div class="middle-box my-5 text-center bg-white p-4 p-sm-5">
+        <h4 class="mb-30">Password Reset</h4>
+
+        <form method="POST" class="register-form" action="">
+            {{ form.hidden_tag() }}
+            <p class="text-center mt-3"></p>
+
+            <div class="form-group">
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control is-invalid", placeholder="Email", autocomplete="off") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control", placeholder="Email", autocomplete="off") }}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {% if form.captcha_text.errors %}
+                    {{ form.captcha_text(class="form-control is-invalid", placeholder="Captcha", autocomplete="off") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.captcha_text.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.captcha_text(class="form-control", placeholder="Captcha", autocomplete="off") }}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <div class="card widget-slider-area p-3">
+                    <div class="form-group">
+                        {{ captcha_html(captcha) | safe}}
+                    </div>
+                </div>
+            </div>
+            {{ form.submit(class="btn btn-primary btn-block btn-lg") }}
+            <p class="text-center mt-3">{{ variables.app_name }}</p>
+        </form>
+    </div>
+{% endblock content %}

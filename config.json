@@ -1,0 +1,9 @@
+{
+    "app_name": "Passreset v.1.0",
+    "flask_secret_key": "lkso289d5ss0Jhakauia334l3",
+    "flask_port": 8000,
+    "flask_simple_captcha_secret_csrf_key": "WnneltW4mhwidorQRli19ijuhygtfgybunxx9WPXlay",
+    "db": "var/db.json",
+    "page_title": "",
+    "user_password_min_size": 8
+}

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block header %}
+  <h1>{% block title %} {{ title }} {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="error-page-area">
+        <div class="error-content text-center py-5 px-4">
+            <div class="error-thumb">
+              <img src="{{ url_for('static', filename='img/bg-img/bg.png') }}" alt="">
+            </div>
+            <h3>This page Could Not Be Found!</h3>
+            <a class="btn btn-lg btn-primary mt-30" href="/">Back To Home</a>
+        </div>
+    </div>
+{% endblock content %}

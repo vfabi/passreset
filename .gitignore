@@ -1,0 +1,11 @@
+*.log
+*.pyc
+*.local
+var/db.json
+.tmp/env.local
+env.local
+TODO.md
+.venv/
+.vscode/
+__pycache__/
+
