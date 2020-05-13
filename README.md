@@ -54,22 +54,24 @@ There are 2 parts of application configuration: config.json - for permanent vari
 - user_password_min_size - minimal user password size
 
 ### Environment variables
-- EMAIL_TRANSPORT (required) - email transport, possible values: aws_ses, email_server
-- EMAIL_SERVER_ADDRESS (optional) - email server address, used if EMAIL_TRANSPORT = email_server
-- EMAIL_SERVER_PORT (optional) -  email server port, used if EMAIL_TRANSPORT = email_server
-- EMAIL_SERVER_USER (optional) - email user, used if EMAIL_TRANSPORT = email_server
-- EMAIL_SERVER_PASSWORD (optional) - email user password, used if EMAIL_TRANSPORT = email_server
-- EMAIL_AWSSES_ACCESS_KEY (optional) - AWS access key, used if EMAIL_TRANSPORT = aws_ses
-- EMAIL_AWSSES_SECRET_KEY (optional) - AWS secret key, used if EMAIL_TRANSPORT = aws_ses
-- EMAIL_AWSSES_REGION (optional) - AWS region, used if EMAIL_TRANSPORT = aws_ses
-- EMAIL_AWSSES_SENDER (optional) - 'from' email address, used if EMAIL_TRANSPORT = aws_ses. Note: this email address should be AWS SES verified to successfully send email messages via AWS SES.
-- BACKEND_TYPE (required) - user registry backend type, possible values: ldap
-- LDAP_SERVER_ADDRESS (optional) - LDAP server ip address
-- LDAP_SERVER_PORT (optional, default=389) - LDAP server ip port
-- LDAP_SERVER_USER (optional) - LDAP administrator user (DN string, example: `cn=admin,dc=example,dc=com`)
-- LDAP_SERVER_PASSWORD (optional) - LDAP user password
-- LDAP_SERVER_USE_SSL (optional, default=False) - use SSL for LDAP server connection
-- LDAP_SERVER_SEARCH_RDN (optional) - LDAP RDN where searching for user entry by `email` attribute (example: `dc=example,dc=com`)
+| Name   |      Required     |  Required if | Values |Description|
+|----------|:-------------:|------:|------:|------:|
+|EMAIL_TRANSPORT|True|   |aws_ses, email_server|email transport|
+|EMAIL_SERVER_ADDRESS||EMAIL_TRANSPORT = email_server||email server address|
+|EMAIL_SERVER_PORT||EMAIL_TRANSPORT = email_server||email server port|
+|EMAIL_SERVER_USER||EMAIL_TRANSPORT = email_server||email user|
+|EMAIL_SERVER_PASSWORD||EMAIL_TRANSPORT = email_server||email user password|
+|EMAIL_AWSSES_ACCESS_KEY||EMAIL_TRANSPORT = aws_ses||AWS access key|
+|EMAIL_AWSSES_SECRET_KEY||EMAIL_TRANSPORT = aws_ses||AWS secret key|
+|EMAIL_AWSSES_REGION||EMAIL_TRANSPORT = aws_ses||AWS region|
+|EMAIL_AWSSES_SENDER||EMAIL_TRANSPORT = aws_ses||'from' email address. Note: this email address should be AWS SES verified to successfully send email messages via AWS SES.|
+|BACKEND_TYPE|True||ldap|user registry backend type|
+|LDAP_SERVER_ADDRESS||BACKEND_TYPE=ldap||LDAP server ip address|
+|LDAP_SERVER_PORT||BACKEND_TYPE=ldap|default=389|LDAP server ip port|
+|LDAP_SERVER_USER||BACKEND_TYPE=ldap||LDAP administrator user (DN string, example: `cn=admin,dc=example,dc=com`)|
+|LDAP_SERVER_PASSWORD||BACKEND_TYPE=ldap||LDAP user password|
+|LDAP_SERVER_USE_SSL||BACKEND_TYPE=ldap|default=False|use SSL for LDAP server connection|
+|LDAP_SERVER_SEARCH_RDN||BACKEND_TYPE=ldap||LDAP RDN where searching for user entry by `email` attribute (example: `dc=example,dc=com`)|
 
 
 # Quick start
