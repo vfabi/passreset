@@ -1,4 +1,12 @@
-# RESETPASS
+# PASSRESET
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/vfabi/passreset)
+![GitHub last commit](https://img.shields.io/github/last-commit/vfabi/passreset)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![Docker Pulls](https://img.shields.io/docker/pulls/vfabi/passreset)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vfabi/passreset)
+![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/vfabi/passreset)
+[![Generic badge](https://img.shields.io/badge/hub.docker.com-vfabi/passreset-<>.svg)](https://hub.docker.com/repository/docker/vfabi/passreset)
+
 Self-service password reset web application that allows users to change their password in external user registry.  
 Supported user registries: 
 - LDAPv3
@@ -7,32 +15,15 @@ Supported user registries:
 ![Image description](.tmp/interface.png)
 
 ## Features
-- User password reset functionality
-- Simple captcha (no external dependencies to Google's reCaptcha and it configuration)
+- User password reset by email
+- Simple captcha (no external dependencies to Google's reCaptcha and it's configuration)
 - LDAPv3 user registry backend
 - SMTP server email transport
 - AWS SES email transport
 
 
-# Files and folders
-- application/core - application's core components
-- application/modules - application's modules
-- application/static - html templates static
-- application/templates - html templates
-- deploy - contains CI-CD files, Dockerfile
-- var - contains files to which the application writes data during the course of its operation
-- .tmp - helpful temporary files not used for application
-- app.py - application entrypoint
-- config.json- application configuration
-- LICENSE - license manifest
-- NOTICE - lincese notice
-- README.md - this file
-- TODO.md - items to be done
-- requirements.txt - python requirements
-
-
-# Technology Stack
-- python 3.6+
+# Technology stack
+- Python 3.6+
 - Flask - web framework
 - ldap3 - for LDAP backend
 - boto3 - for AWS SES integration
@@ -92,8 +83,25 @@ There are 2 parts of application configuration: config.json - for permanent vari
 
 
 # Docker
-**Repo:** vfabi/passreset at https://hub.docker.com  
+**Repo:** [![Generic badge](https://img.shields.io/badge/hub.docker.com-vfabi/passreset-<>.svg)](https://hub.docker.com/repository/docker/vfabi/passreset)  
 **Build:** `docker build -t passreset:latest -f ./deploy/Dockerfile .`
+
+
+# Files and folders
+- application/core - application's core components
+- application/modules - application's modules
+- application/static - html templates static
+- application/templates - html templates
+- deploy - contains CI-CD files, Dockerfile
+- var - contains files to which the application writes data during the course of its operation
+- .tmp - helpful temporary files not used for application
+- app.py - application entrypoint
+- config.json- application configuration
+- LICENSE - license manifest
+- NOTICE - lincese notice
+- README.md - this file
+- TODO.md - items to be done
+- requirements.txt - python requirements
 
 
 # Contributing
