@@ -5,7 +5,6 @@ COPY ./requirements.txt .
 RUN apk add --no-cache uwsgi uwsgi-python uwsgi-http python-dev build-base linux-headers pcre-dev zlib-dev jpeg-dev freetype-dev \
     && python -m pip install --upgrade pip \
     && pip install -r requirements.txt
-#RUN apk del build-base
 COPY . .
 RUN chown -R nobody:nobody /app/
 USER nobody

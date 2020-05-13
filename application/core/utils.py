@@ -24,8 +24,12 @@ from .email import EmailTransportAwsSes, EmailTransportEmailServer
 
 def get_variables():
     """Get all variables, from config and enviroment."""
-    config = open(os.path.dirname(__file__) + '/../../config.json')
+    config = open(os.path.dirname(__file__) + '/../../config/main.json')
     vs = json.loads(config.read())
+
+    vs['FLASK_SECRET_KEY'] = os.urandom(20).hex()
+    vs['FLASK_SIMPLE_CAPTCHA_SECRET_CSRF_KEY'] = os.urandom(20).hex()
+    vs['USER_PASSWORD_MIN_SIZE'] = os.getenv('USER_PASSWORD_MIN_SIZE', 8)
     vs['EMAIL_TRANSPORT'] = os.getenv('EMAIL_TRANSPORT', None)
     vs['EMAIL_SERVER_ADDRESS'] = os.getenv('EMAIL_SERVER_ADDRESS', None)
     vs['EMAIL_SERVER_PORT'] = os.getenv('EMAIL_SERVER_PORT', None)
@@ -51,7 +55,7 @@ class CustomCaptcha(CAPTCHA):
     """Redefined CAPTCHA from flask_simple_captcha.
     
     Note:
-        Redefined because of captcha_html method, mo make custom nice form.
+        Redefined because of captcha_html method, to make custom nice form.
     """
 
     def captcha_html(self, captcha):
@@ -82,7 +86,7 @@ else:
    raise Exception('EMAIL_TRANSPORT variable is not set or have incorrect value.')
 
 
-# User DB backend
+# User registry backend
 if variables['BACKEND_TYPE'] == 'ldap':
     backend = BackendLDAP(variables)
 else:

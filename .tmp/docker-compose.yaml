@@ -1,4 +1,4 @@
-# OpenLDAP, PHPldapadmin and Passreset stack for interconnectivity testing.
+# OpenLDAP, PHPldapadmin and Passreset stack.
 
 version: '3'
 services:
