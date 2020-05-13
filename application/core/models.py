@@ -20,7 +20,7 @@ from .utils import variables
 
 
 class ResetLinkModel:
-    '''JSON database model to store generated reset links.'''
+    """Database model to store generated reset links."""
 
     def __init__(self):
         self.db = Database(variables['db'])

@@ -3,9 +3,10 @@
 *.local
 var/db.json
 .tmp/env.local
+.tmp/tmp.py
+tmp.py
 env.local
 TODO.md
 .venv/
 .vscode/
 __pycache__/
-

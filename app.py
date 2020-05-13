@@ -22,9 +22,9 @@ from application.core.models import ResetLinkModel
 from application.core.utils import variables, CustomCaptcha, SecurityHandler, mailer, backend
 
 
-captcha = CustomCaptcha(config={'SECRET_CSRF_KEY': variables['flask_simple_captcha_secret_csrf_key']})
+captcha = CustomCaptcha(config={'SECRET_CSRF_KEY': variables['FLASK_SIMPLE_CAPTCHA_SECRET_CSRF_KEY']})
 app = Flask(__name__, template_folder=os.path.abspath('application/templates'), static_folder='application/static')
-app.config['SECRET_KEY'] = variables['flask_secret_key']
+app.config['SECRET_KEY'] = variables['FLASK_SECRET_KEY']
 app = captcha.init_app(app)
 app.jinja_env.globals.update(variables=variables)
 security_handler = SecurityHandler(app.logger)
@@ -53,8 +53,8 @@ def reset():
                 flash(f'Password reset link sent to {form.email.data}.', 'success')
                 return redirect(url_for('reset'))
             else:
-                security_handler.process(message='Email was not find in user database registry.', ipaddress=request.remote_addr)
-                flash(f'Email {form.email.data} was not found in user database.', 'warning')
+                security_handler.process(message=f'Email {form.email.data} was not found in user registry.', ipaddress=request.remote_addr)
+                flash(f'Email {form.email.data} was not found in user registry', 'warning')
                 return redirect("reset")
         except Exception as e:
             flash(f'Internal error. Details: {e}.', 'danger')
@@ -64,7 +64,7 @@ def reset():
 
 @app.route('/resetlink/<string:resetlink>/', methods=['GET', 'POST'])
 def article(resetlink):
-    if ResetLinkModel().exists(resetlink):
+    if resetlink_storage.exists(resetlink):
         form = PasswdChangeForm()
         if form.validate_on_submit():
             try:
