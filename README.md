@@ -82,6 +82,23 @@ To start full openLDAP + PHPldapadmin + Passreset stack cd into `.tmp/`, configu
 Build: `docker build -t passreset:latest -f ./deploy/Dockerfile .`
 
 
+# Files and folders
+- application/core - application's core components
+- application/modules - application's modules
+- application/static - html templates static
+- application/templates - html templates
+- deploy - contains CI-CD files, Dockerfile
+- var - contains files to which the application writes data during the course of its operation
+- .tmp - helpful temporary files not used for application
+- app.py - application entrypoint
+- config.json- application configuration
+- LICENSE - license manifest
+- NOTICE - lincese notice
+- README.md - this file
+- TODO.md - items to be done
+- requirements.txt - python requirements
+
+
 # Contributing
 Please refer to each project's style and contribution guidelines for submitting patches and additions. In general, we follow the "fork-and-pull" Git workflow.
 
