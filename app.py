@@ -15,7 +15,6 @@
 """
 
 import os
-import random
 from flask import Flask, render_template, flash, redirect, url_for, request
 from application.core.forms import PasswdResetForm, PasswdChangeForm
 from application.core.models import ResetLinkModel
@@ -46,7 +45,7 @@ def reset():
                 return redirect(url_for('reset'))
             # check email exists in user database
             if backend.check_exists(form.email.data):
-                resetlink_string = ''.join(random.choice('abcdefghijklmnopqrstuvwxyz1234567890') for _ in range(30))
+                resetlink_string = resetlink_storage.generate()
                 resetlink_url = f'{request.url_root}resetlink/{resetlink_string}/'
                 resetlink_storage.add(resetlink_string, form.email.data)
                 mailer.sendmail(resetlink_url, form.email.data)
