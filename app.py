@@ -15,16 +15,15 @@
 """
 
 import os
-import random
 from flask import Flask, render_template, flash, redirect, url_for, request
 from application.core.forms import PasswdResetForm, PasswdChangeForm
 from application.core.models import ResetLinkModel
 from application.core.utils import variables, CustomCaptcha, SecurityHandler, mailer, backend
 
 
-captcha = CustomCaptcha(config={'SECRET_CSRF_KEY': variables['flask_simple_captcha_secret_csrf_key']})
+captcha = CustomCaptcha(config={'SECRET_CSRF_KEY': variables['FLASK_SIMPLE_CAPTCHA_SECRET_CSRF_KEY']})
 app = Flask(__name__, template_folder=os.path.abspath('application/templates'), static_folder='application/static')
-app.config['SECRET_KEY'] = variables['flask_secret_key']
+app.config['SECRET_KEY'] = variables['FLASK_SECRET_KEY']
 app = captcha.init_app(app)
 app.jinja_env.globals.update(variables=variables)
 security_handler = SecurityHandler(app.logger)
@@ -46,15 +45,15 @@ def reset():
                 return redirect(url_for('reset'))
             # check email exists in user database
             if backend.check_exists(form.email.data):
-                resetlink_string = ''.join(random.choice('abcdefghijklmnopqrstuvwxyz1234567890') for _ in range(30))
+                resetlink_string = resetlink_storage.generate()
                 resetlink_url = f'{request.url_root}resetlink/{resetlink_string}/'
                 resetlink_storage.add(resetlink_string, form.email.data)
                 mailer.sendmail(resetlink_url, form.email.data)
                 flash(f'Password reset link sent to {form.email.data}.', 'success')
                 return redirect(url_for('reset'))
             else:
-                security_handler.process(message='Email was not find in user database registry.', ipaddress=request.remote_addr)
-                flash(f'Email {form.email.data} was not found in user database.', 'warning')
+                security_handler.process(message=f'Email {form.email.data} was not found in user registry.', ipaddress=request.remote_addr)
+                flash(f'Email {form.email.data} was not found in user registry', 'warning')
                 return redirect("reset")
         except Exception as e:
             flash(f'Internal error. Details: {e}.', 'danger')
@@ -64,7 +63,7 @@ def reset():
 
 @app.route('/resetlink/<string:resetlink>/', methods=['GET', 'POST'])
 def article(resetlink):
-    if ResetLinkModel().exists(resetlink):
+    if resetlink_storage.exists(resetlink):
         form = PasswdChangeForm()
         if form.validate_on_submit():
             try:

@@ -2,10 +2,11 @@
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/vfabi/passreset)
 ![GitHub last commit](https://img.shields.io/github/last-commit/vfabi/passreset)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+[![Generic badge](https://img.shields.io/badge/hub.docker.com-vfabi/passreset-<>.svg)](https://hub.docker.com/repository/docker/vfabi/passreset)
+![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/vfabi/passreset)
 ![Docker Pulls](https://img.shields.io/docker/pulls/vfabi/passreset)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/vfabi/passreset)
-![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/vfabi/passreset)
-[![Generic badge](https://img.shields.io/badge/hub.docker.com-vfabi/passreset-<>.svg)](https://hub.docker.com/repository/docker/vfabi/passreset)
 
 Self-service password reset web application that allows users to change their password in external user registry.  
 Supported user registries: 
@@ -43,19 +44,10 @@ For LDAP registry you need configured user entry in RDN. That RDN should be spec
 
 
 # Configuration
-There are 2 parts of application configuration: config.json - for permanent variables and environmet variables for flexible application configuration.
-### config.json
-- app_name - application name
-- flask_secret_key - randomly generated string for Flask application
-- flask_port - Flask application port run at
-- flask_simple_captcha_secret_csrf_key - flask_simple_captcha secret key used as csrf tocken
-- db - json database file name to store resetlinks
-- page_title - default html page title
-- user_password_min_size - minimal user password size
-
-### Environment variables
+## Environment variables
 | Name   |      Required     |  Required if | Values |Description|
 |----------|:-------------:|------:|------:|------:|
+|USER_PASSWORD_MIN_SIZE|||default=8|user password minimal length size|
 |EMAIL_TRANSPORT|True|   |aws_ses, email_server|email transport|
 |EMAIL_SERVER_ADDRESS||EMAIL_TRANSPORT = email_server||email server address|
 |EMAIL_SERVER_PORT||EMAIL_TRANSPORT = email_server||email server port|
@@ -75,18 +67,19 @@ There are 2 parts of application configuration: config.json - for permanent vari
 
 
 # Quick start
- - Make sure you have up and running user registry server and you have credentials to it
- - Configure config.json
+## Local
+ - Make sure you have up and running user registry server and you have credentials for it
  - Configure and export environment variables
  - Run `python app.py`
  - Navigate to http://127.0.0.1:8000
 
- Or use docker-compose to start full openLDAP+PHPldapadmin+Resetpass stack. Cd to `.tmp/` configure `env.dockercompose` file and run `docker-compose up`.
+## Docker-compose stack 
+To start full openLDAP + PHPldapadmin + Passreset stack cd into `.tmp/`, configure `env.dockercompose` file and run `docker-compose up`.
 
 
 # Docker
-**Repo:** [![Generic badge](https://img.shields.io/badge/hub.docker.com-vfabi/passreset-<>.svg)](https://hub.docker.com/repository/docker/vfabi/passreset)  
-**Build:** `docker build -t passreset:latest -f ./deploy/Dockerfile .`
+[![Generic badge](https://img.shields.io/badge/hub.docker.com-vfabi/passreset-<>.svg)](https://hub.docker.com/repository/docker/vfabi/passreset)  
+Build: `docker build -t passreset:latest -f ./deploy/Dockerfile .`
 
 
 # Files and folders

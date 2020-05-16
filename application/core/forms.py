@@ -39,6 +39,16 @@ class PasswdResetForm(FlaskForm):
 
 
 class PasswdChangeForm(FlaskForm):
-    new_password = PasswordField('New Password', validators=[DataRequired(), Length(min=variables['user_password_min_size'])])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), Length(min=variables['user_password_min_size']), EqualTo('new_password', message='Both field values must be equal.')])
+    new_password = PasswordField(
+        'New Password',
+        validators=[DataRequired(),
+        Length(min=variables['USER_PASSWORD_MIN_SIZE'])]
+    )
+    confirm_password = PasswordField(
+        'Confirm Password',
+        validators=[DataRequired(),
+        Length(min=variables['USER_PASSWORD_MIN_SIZE']),
+        EqualTo('new_password',
+        message='Both field values must be equal.')]
+    )
     submit = SubmitField('Submit')
