@@ -70,11 +70,16 @@ class SecurityHandler:
     def __init__(self, logger):
         self.logger = logger
 
-    def log(self, message):
-        self.logger.warning(message)
+    def log(self, message, level):
+        if level == 'error':
+            self.logger.error(message)
+        elif level == 'warning':
+            self.logger.warning(message)
+        else:
+            self.logger.info(message)
 
-    def process(self, message=None, ipaddress=None):
-        self.log(f'message="{message}", ipaddress="{ipaddress}"')
+    def process(self, message, ipaddress, level):
+        self.log(f'"{message}" {ipaddress}', level)
 
 
 # Email transport
