@@ -7,7 +7,7 @@
     @copyright: © 2020 by vfabi
     @author: vfabi
     @support: vfabi
-    @inital date: 2020-05-08 21:08:07
+    @initial date: 2020-05-08 21:08:07
     @license: this file is subject to the terms and conditions defined
         in file 'LICENSE', which is part of this source code package
     @description:
