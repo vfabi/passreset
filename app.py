@@ -7,7 +7,7 @@
     @copyright: © 2020 by vfabi
     @author: vfabi
     @support: vfabi
-    @inital date: 2020-05-08 21:08:07
+    @initial date: 2020-05-08 21:08:07
     @license: this file is subject to the terms and conditions defined
         in file 'LICENSE', which is part of this source code package
     @description:
@@ -97,5 +97,5 @@ if __name__ == "__main__":
     app.run(
         debug=False,
         host='0.0.0.0',
-        port=variables['flask_port']
+        port=8000
     )
