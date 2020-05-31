@@ -13,10 +13,10 @@ Supported user registries:
 - LDAPv3
 
 ## Interface
-![Image description](.tmp/interface.png)
+![Image description](.fls/interface.png)
 
 ## Features
-- User password reset by email
+- User password reset with temporary resetlink send by email
 - Simple captcha (no external dependencies to Google's reCaptcha and it's configuration)
 - LDAPv3 user registry backend
 - SMTP server email transport
@@ -32,7 +32,7 @@ Supported user registries:
 
 # Requirements and dependencies
 ## Application
-Python libs requrements in requirements.txt
+Python libs requirements in requirements.txt
 
 ## External
 Configured and running one of the supported user registry.  
@@ -40,7 +40,7 @@ Configured and running one of the supported user registry.
 **LDAPv3**
 
 Tested with openLDAP server only, but can be run with other LDAPv3 servers supported by `ldap3` python library (https://ldap3.readthedocs.io/en/latest/).  
-For LDAP registry you need configured user entry in RDN. That RDN should be specified in `LDAP_SERVER_SEARCH_RDN` env variable. For example `LDAP_SERVER_SEARCH_RDN='dc=example,dc=com'` and user entry with `objectclass=inetOrgPerson` and `email` attributes, these attributes used as user searching filter.  
+For LDAP registry you need configured user entry in RDN specified in `LDAP_SERVER_SEARCH_RDN` env variable. For example `LDAP_SERVER_SEARCH_RDN='dc=example,dc=com'` and user entry with `objectclass=inetOrgPerson` and `email` attributes, these attributes used as user searching filter.  
 
 
 # Configuration
@@ -66,37 +66,20 @@ For LDAP registry you need configured user entry in RDN. That RDN should be spec
 |LDAP_SERVER_SEARCH_RDN||BACKEND_TYPE=ldap||LDAP RDN where searching for user entry by `email` attribute (example: `dc=example,dc=com`)|
 
 
-# Quick start
+# Usage
 ## Local
- - Make sure you have up and running user registry server and you have credentials for it
- - Configure and export environment variables
+ - Make sure you have running and configured external user registry server and you have credentials for it
+ - Configure and export environment variables described above
  - Run `python app.py`
  - Navigate to http://127.0.0.1:8000
 
-## Docker-compose stack 
-To start full openLDAP + PHPldapadmin + Passreset stack cd into `.tmp/`, configure `env.dockercompose` file and run `docker-compose up`.
+## Docker-compose stack
+To run openLDAP + PHPldapadmin + Passreset stack use /deploy/examples/docker-compose.yaml.  
+http://127.0.0.1:8000 for Passreset, http://127.0.0.1:5000 for PHPldapadmin.  
 
 
 # Docker
 [![Generic badge](https://img.shields.io/badge/hub.docker.com-vfabi/passreset-<>.svg)](https://hub.docker.com/repository/docker/vfabi/passreset)  
-Build: `docker build -t passreset:latest -f ./deploy/Dockerfile .`
-
-
-# Files and folders
-- application/core - application's core components
-- application/modules - application's modules
-- application/static - html templates static
-- application/templates - html templates
-- deploy - contains CI-CD files, Dockerfile
-- var - contains files to which the application writes data during the course of its operation
-- .tmp - helpful temporary files not used for application
-- app.py - application entrypoint
-- config.json- application configuration
-- LICENSE - license manifest
-- NOTICE - lincese notice
-- README.md - this file
-- TODO.md - items to be done
-- requirements.txt - python requirements
 
 
 # Contributing

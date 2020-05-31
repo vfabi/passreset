@@ -5,6 +5,7 @@ email-validator==1.1.0
 jsondatabase==0.1.7
 boto3==1.13.6
 ldap3==2.7
-flask-simple-captcha==1.1.0
+#flask-simple-captcha==1.1.0
+git+git://github.com/vfabi/flask-simple-captcha@master  # fixed version of original flask-simple-captcha==1.1.0
 Werkzeug==0.16.0
 uWSGI==2.0.18

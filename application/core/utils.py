@@ -7,7 +7,7 @@
     @copyright: © 2020 by vfabi
     @author: vfabi
     @support: vfabi
-    @inital date: 2020-05-08 21:08:07
+    @initial date: 2020-05-08 21:08:07
     @license: this file is subject to the terms and conditions defined
         in file 'LICENSE', which is part of this source code package
     @description:
@@ -23,7 +23,7 @@ from .email import EmailTransportAwsSes, EmailTransportEmailServer
 
 
 def get_variables():
-    """Get all variables, from config and enviroment."""
+    """Get all variables, from config and environment."""
     config = open(os.path.dirname(__file__) + '/../../config/main.json')
     vs = json.loads(config.read())
 
@@ -70,14 +70,19 @@ class SecurityHandler:
     def __init__(self, logger):
         self.logger = logger
 
-    def log(self, message):
-        self.logger.warning(message)
+    def log(self, message, level):
+        if level == 'error':
+            self.logger.error(message)
+        elif level == 'warning':
+            self.logger.warning(message)
+        else:
+            self.logger.info(message)
 
-    def process(self, message=None, ipaddress=None):
-        self.log(f'message="{message}", ipaddress="{ipaddress}"')
+    def process(self, message, ipaddress, level):
+        self.log(f'"{message}" {ipaddress}', level)
 
 
-# Email transport
+# Email transport init
 if variables['EMAIL_TRANSPORT'] == 'aws_ses':
     mailer = EmailTransportAwsSes(variables)
 elif variables['EMAIL_TRANSPORT'] == 'email_server':
@@ -86,7 +91,7 @@ else:
    raise Exception('EMAIL_TRANSPORT variable is not set or have incorrect value.')
 
 
-# User registry backend
+# User registry backend init
 if variables['BACKEND_TYPE'] == 'ldap':
     backend = BackendLDAP(variables)
 else:
